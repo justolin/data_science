@@ -5,8 +5,7 @@ if (length(args)==0) {
 }
 # get the arguments from cmd line 
 i<-1 
-while(i < length(args))
-{
+while(i < length(args)){ 
   if(args[i] == "-files"){
     input_file <- args[i+1]
     i<-i+1
