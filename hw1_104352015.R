@@ -1,9 +1,16 @@
-## data input
-setwd("C:/Users/user/Desktop/SPHW1")
-data <- read.csv("test.1.csv")
-## summary smax
-maxw <- round(max(data[,2]),2)
-maxh <- round(max(data[,3]),2)
-result <- rbind(c("set","weight","height"),c("test.1",maxw,maxh))
-## summary output csv
-write.table(result,"result.csv",sep=",",row.names = FALSE,col.names = FALSE)
+########################
+#### homework1 code ####
+########################
+args = commandArgs(trailingOnly=TRUE)
+if (length(args)==0) {
+  stop("USAGE: Rscript hw1_104352015.R input", call.=FALSE)
+} else if (length(args)==1) {
+  d <- read.csv(args[1])
+  nums <- sapply(d, is.numeric)
+  numd <- d[,nums]
+  ## summary maximum
+  maxcol <- round(apply(numd,2,max),2)
+  result <- rbind(c("set",colnames(numd)),c(args[1],maxcol))
+  ## summary output csv
+  write.table(result,args[2],sep=",",row.names = FALSE,col.names = FALSE)
+}
