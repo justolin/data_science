@@ -1,4 +1,4 @@
-# cmd line inouts 
+# cmd line inputs
 args = commandArgs(trailingOnly=TRUE)
 if (length(args)==0) {
   stop("USAGE: Rscript hw1_104352015.R -files input_file -out output_file", call.=FALSE)
@@ -24,6 +24,6 @@ nums <- sapply(d, is.numeric)
 numd <- d[,nums]
 # calculate maximum
 maxcol <- round(apply(numd,2,max),2)
-result <- rbind(c("set",colnames(numd)),c(args[1],maxcol))
+result <- rbind(c("set",colnames(numd)),c(sub('\\.csv$', '',input_file),maxcol))
 #results output
 write.table(result,out_file,sep=",",row.names = FALSE,col.names = FALSE)
