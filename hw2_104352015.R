@@ -41,6 +41,7 @@ print(paste("query mode :",target))
 print(paste("output file:",out_f))
 print(paste("files:",files))
 
+files <- unique(files)
 if (target == "male"){
   target_n <- "female"
 }else if(target == "female"){
