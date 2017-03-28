@@ -24,7 +24,7 @@ while(i < length(args))
     target<-args[i+1]
     i<-i+1
   }else if(args[i] == "--files"){
-    j<-grep("--", c(args[(i+1):length(args)], "--"))[1]
+    j<-grep("--", c(args[(i+1):length(args)],"--"))[1]
     files<-args[(i+1):(i+j-1)]
     i<-i+j-1
   }else if(args[i] == "--out"){
@@ -65,8 +65,13 @@ for(file in files)
   sensitivity<-c(sensitivity, TP/(TP+FN))
   specificity<-c(specificity, TN/(TN+FP))
   F1 <- c(F1, 2*TP/(2*TP+FP+FN))
-  pos <- subset(d,reference == target)[,4]
-  neg <- subset(d,reference == target_n)[,4]
+  if (target == "male"){
+    pos <- subset(d,reference == target)[,4]
+    neg <- subset(d,reference == target_n)[,4]
+  }else if(target == "female"){
+    pos <- 1-subset(d,reference == target)[,4]
+    neg <- 1-subset(d,reference == target_n)[,4]
+  }
   AUC <- c(AUC, get_AUC(pos,neg))
   method<-c(method,name)
 }
@@ -80,6 +85,10 @@ max_method <- c("method",method[max_index])
 out_data <- out_data[rank(method),]
 out_data <- format(head(out_data), digits=2) 
 out_data <- rbind(out_data,max_method)
-write.table(out_data,out_f, row.names = FALSE,sep=",")
+if (grepl("csv",out_f) == TRUE){
+  write.table(out_data,out_f, row.names = FALSE,sep=",")
+}else if (grepl("csv",out_f) == FALSE){
+  write.table(out_data, file=out_f, row.names = F, quote = F)
+}
 
 ##### CODE END #####
