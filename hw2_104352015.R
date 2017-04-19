@@ -10,7 +10,7 @@ get_AUC <- function(pred_score,reference) {
 ##### read parameters #####
 args = commandArgs(trailingOnly=TRUE)
 if (length(args)==0) {
-  stop("USAGE: Rscript hw2_104352015.R --target male/female --files meth1 meth2 ... --out result.csv", call.=FALSE)
+  stop("USAGE: Rscript hw2_104352015.R --target male/female --files file1 file2 ... --out result.csv", call.=FALSE)
 }
 
 ##### parse parameters #####
