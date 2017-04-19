@@ -21,7 +21,7 @@ while(i < length(args))
     target<-args[i+1]
     i<-i+1
   }else if(args[i] == "--files"){
-    j<-grep("--", c(args[(i+1):length(args)],"--"))[1]
+    j<-grep("-", c(args[(i+1):length(args)],"-"))[1]
     files<-args[(i+1):(i+j-1)]
     i<-i+j-1
   }else if(args[i] == "--out"){
@@ -50,8 +50,7 @@ sensitivity <- c()
 specificity <-c()
 F1 <- c()
 AUC <- c()
-for(file in files)
-{
+for(file in files){
   d <- read.table(file, header=TRUE , sep=",")
   TP <- length(which(d$prediction == target & d$reference == target))
   TN <- length(which(d$prediction == target_n & d$reference == target_n))
@@ -70,8 +69,10 @@ out_data<-data.frame(method = method, sensitivity = sensitivity,
                      stringsAsFactors = FALSE)
 max_index <- apply(out_data[,-1],2,which.max)
 max_method <- c("highest",method[max_index])
+out_data <- out_data[rank(out_data$method),]
 out_data <- format(out_data, digits=2)
 out_data <- rbind(out_data,max_method)
+out_data <- sort()
 if (grepl("csv",out_f) == TRUE){
   write.table(out_data,out_f, row.names = FALSE,sep=",")
 }else if (grepl("csv",out_f) == FALSE){
