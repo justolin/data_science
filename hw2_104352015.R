@@ -64,15 +64,13 @@ for(file in files){
 }
 
 ##### results formated and output #####
-out_data<-data.frame(method = method, sensitivity = sensitivity, 
+out_data<-data.frame(method = method, sensitivity = sensitivity,
                      specificity = specificity,F1 = F1, AUC = AUC,
                      stringsAsFactors = FALSE)
 max_index <- apply(out_data[,-1],2,which.max)
 max_method <- c("highest",method[max_index])
-out_data <- out_data[rank(out_data$method),]
 out_data <- format(out_data, digits=2)
 out_data <- rbind(out_data,max_method)
-out_data <- sort()
 if (grepl("csv",out_f) == TRUE){
   write.table(out_data,out_f, row.names = FALSE,sep=",")
 }else if (grepl("csv",out_f) == FALSE){
