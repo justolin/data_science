@@ -103,10 +103,6 @@ max_method <- c("highest",max_method)
 ##### final results and output
 out_data <- format(out_data,digits=2)
 out_data <- rbind(out_data,max_method)
-if (grepl("csv",out_f) == TRUE){
-  write.table(out_data,out_f, row.names = F ,sep=",")
-}else if (grepl("csv",out_f) == FALSE){
-  write.table(out_data, file=out_f, row.names = F, quote = F)
-}
+write.table(out_data, file=out_f, row.names = F, quote = F ,sep=",")
 
 ##### CODE END #####
